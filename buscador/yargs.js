@@ -4,7 +4,7 @@ let opts = {
         alias: 'f'
 
     },
-    limite: {
+    anio: {
         alias: 'y',
         default: 1960
     },
@@ -15,8 +15,7 @@ let opts = {
 }
 const argv = require('yargs')
     .command('listar', 'imprime las tablas de multiplicar', opts)
-    .command('buscar', 'crea una nueva tabla', opts)
-    .command('buscar_cod', 'Código del país que se requiere información', opts)
+    .command('guardar', 'Guardar texto ', opts)
     .help()
     .argv;
 

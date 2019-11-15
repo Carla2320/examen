@@ -9,9 +9,6 @@
 //         console.log('CSV file successfully processed');
 //     });
 
-const argv = require('./config/yarg').argv;
-
-const colors = require('colors');
 
 let listar = (archivo) => {
     fs.createReadStream('datos.csv')
@@ -25,7 +22,7 @@ let listar = (archivo) => {
 }
 
 let Buscar = (pais) => {
-    fs.createReadStream('datos.csv')
+    fs.createReadStream(`${pais}`)
         .pipe(csv())
         .on('data', (row) => {
             if (row == pais) {
@@ -38,6 +35,28 @@ let Buscar = (pais) => {
             console.log('CSV file successfully processed');
         });
 
+}
 
+let crearArchivo = (base, limite) => {
 
+}
+
+const argv = require('./buscador/yargs').argv;
+console.log(argv)
+let command = argv._[0];
+
+switch (command) {
+    case 'mostrar':
+        crearArchivo(argv.base, argv.anio, argv.codigo)
+            .then(archivo => console.log(`Archivo: ${ archivo }`))
+            .catch(err => {
+                console.log(err)
+            })
+        break;
+    case 'guardar':
+        listar(argv.base, argv.anio, argv.codigo);
+        break;
+    default:
+        console.log('Comando no reconocido');
+        break;
 }
